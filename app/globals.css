@@ -1,0 +1,61 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* Dark Theme (default) */
+:root,
+[data-theme="dark"] {
+  --dv-bg: 11 14 17;
+  --dv-surface: 19 22 26;
+  --dv-elevated: 25 29 34;
+  --dv-raised: 30 34 40;
+  --dv-accent: 244 149 134;
+  --dv-accentHover: 224 126 111;
+  --dv-accentDim: 244 149 134;
+  --dv-text: 230 230 230;
+  --dv-text2: 139 144 153;
+  --dv-text3: 92 99 112;
+  --dv-border: 58 63 69;
+  --dv-border2: 38 42 47;
+}
+
+/* Light Theme */
+[data-theme="light"] {
+  --dv-bg: 253 253 253;
+  --dv-surface: 246 246 246;
+  --dv-elevated: 240 240 240;
+  --dv-raised: 235 235 235;
+  --dv-accent: 244 149 134;
+  --dv-accentHover: 224 126 111;
+  --dv-accentDim: 244 149 134;
+  --dv-text: 30 30 30;
+  --dv-text2: 100 100 100;
+  --dv-text3: 150 150 150;
+  --dv-border: 220 220 220;
+  --dv-border2: 230 230 230;
+}
+
+::selection {
+  background: rgba(244, 149, 134, 0.2);
+  color: rgb(var(--dv-text));
+}
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgb(var(--dv-border2)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgb(var(--dv-border)); }
+
+/* Staggered animation delays */
+.stagger-1 { animation-delay: 0.04s; }
+.stagger-2 { animation-delay: 0.08s; }
+.stagger-3 { animation-delay: 0.12s; }
+.stagger-4 { animation-delay: 0.16s; }
+.stagger-5 { animation-delay: 0.20s; }
+.stagger-6 { animation-delay: 0.24s; }
+.stagger-7 { animation-delay: 0.28s; }
+.stagger-8 { animation-delay: 0.32s; }
+.stagger-9 { animation-delay: 0.36s; }
+.stagger-10 { animation-delay: 0.40s; }
