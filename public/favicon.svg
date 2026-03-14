@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Cyan/Teal background -->
-  <rect width="32" height="32" fill="#06b6d4" rx="6"/>
+  <!-- Accent background: rgb(244, 149, 134) -->
+  <rect width="32" height="32" fill="#f49586" rx="6"/>
 
   <!-- Layers icon in white -->
   <g fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
