@@ -1,6 +1,6 @@
 # DevVault
 
-A curated vault of CS learning resources, parsed in real-time from 10 top GitHub repositories.
+A curated vault of CS learning resources, parsed in real-time from 10 top GitHub repositories to make it easier.
 
 ## Architecture
 
