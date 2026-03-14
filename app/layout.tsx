@@ -6,6 +6,9 @@ export const metadata: Metadata = {
   title: "DevVault — Curated CS Learning Resources",
   description:
     "Aggregating the best computer science courses, books, and resources from top GitHub repositories.",
+  icons: {
+    icon: "/favicon.svg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
