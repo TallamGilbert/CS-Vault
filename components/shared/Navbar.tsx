@@ -71,6 +71,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
           onClick={toggleTheme}
           className="flex items-center justify-center p-2 rounded-lg text-dv-text3 hover:text-dv-text hover:bg-dv-elevated/50 transition-colors cursor-pointer bg-transparent border-none"
           title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+          aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
         >
           {theme === "dark" ? (
             <Sun size={14} />
@@ -82,6 +83,7 @@ export function Navbar({ onSearchOpen }: NavbarProps) {
         <button
           onClick={onSearchOpen}
           className="flex items-center gap-2 text-dv-text3 hover:text-dv-text2 transition-colors cursor-pointer bg-transparent border-none"
+          aria-label="Open search (press / key)"
         >
           <Search size={14} />
           <span className="text-[13px] font-medium hidden sm:inline">Search</span>

@@ -43,12 +43,12 @@ function ResourceRow({ resource, layout = "list" }: { resource: Resource; layout
           )}
         </div>
         <div className="flex flex-wrap gap-1.5">
-          {resource.links.map((link, i) => {
+          {resource.links.map((link) => {
             const Icon = LINK_ICON[link.type] ?? Globe;
             const colorClass = LINK_COLOR[link.type] ?? "text-dv-text3 border-dv-border2";
             return (
               <a
-                key={i}
+                key={`${link.type}-${link.url}`}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -60,14 +60,16 @@ function ResourceRow({ resource, layout = "list" }: { resource: Resource; layout
             );
           })}
         </div>
-        <a
-          href={resource.links[0]?.url ?? "#"}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-dv-accent hover:text-dv-accentHover transition-colors inline-flex items-center gap-1 text-[11px] font-medium"
-        >
-          View <ExternalLink size={10} />
-        </a>
+        {resource.links.length > 0 && (
+          <a
+            href={resource.links[0].url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-dv-accent hover:text-dv-accentHover transition-colors inline-flex items-center gap-1 text-[11px] font-medium"
+          >
+            View <ExternalLink size={10} />
+          </a>
+        )}
       </div>
     );
   }
@@ -82,12 +84,12 @@ function ResourceRow({ resource, layout = "list" }: { resource: Resource; layout
           <div className="text-[11px] text-dv-text3 mt-0.5">{resource.university}</div>
         )}
         <div className="flex flex-wrap gap-1.5 mt-2">
-          {resource.links.map((link, i) => {
+          {resource.links.map((link) => {
             const Icon = LINK_ICON[link.type] ?? Globe;
             const colorClass = LINK_COLOR[link.type] ?? "text-dv-text3 border-dv-border2";
             return (
               <a
-                key={i}
+                key={`${link.type}-${link.url}`}
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -100,14 +102,16 @@ function ResourceRow({ resource, layout = "list" }: { resource: Resource; layout
           })}
         </div>
       </div>
-      <a
-        href={resource.links[0]?.url ?? "#"}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="text-dv-text3 hover:text-dv-accent transition-colors mt-0.5 shrink-0"
-      >
-        <ExternalLink size={12} />
-      </a>
+      {resource.links.length > 0 && (
+        <a
+          href={resource.links[0].url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-dv-text3 hover:text-dv-accent transition-colors mt-0.5 shrink-0"
+        >
+          <ExternalLink size={12} />
+        </a>
+      )}
     </div>
   );
 }
@@ -121,6 +125,7 @@ function CategorySection({ category, layout = "list" }: { category: ParsedCatego
     <div className="border border-dv-border2 rounded-lg overflow-hidden">
       <button
         onClick={() => setExpanded(!expanded)}
+        aria-expanded={expanded}
         className="w-full flex items-center justify-between px-5 py-3.5 bg-dv-surface hover:bg-dv-elevated transition-colors cursor-pointer border-none text-left"
       >
         <div className="flex items-center gap-3">
@@ -184,6 +189,7 @@ export function ResourceBrowser({ source, onBack }: ResourceBrowserProps) {
         <button
           onClick={onBack}
           className="flex items-center gap-1.5 text-[13px] text-dv-text3 hover:text-dv-text2 transition-colors cursor-pointer bg-transparent border-none font-body"
+          aria-label="Go back to sources list"
         >
           <ArrowLeft size={14} />
           Back
@@ -216,6 +222,8 @@ export function ResourceBrowser({ source, onBack }: ResourceBrowserProps) {
                 : "text-dv-text3 hover:text-dv-text2 bg-transparent"
             }`}
             title="List view"
+            aria-label="Switch to list view"
+            aria-pressed={layout === "list"}
           >
             <LayoutList size={14} />
           </button>
@@ -227,6 +235,8 @@ export function ResourceBrowser({ source, onBack }: ResourceBrowserProps) {
                 : "text-dv-text3 hover:text-dv-text2 bg-transparent"
             }`}
             title="Grid view"
+            aria-label="Switch to grid view"
+            aria-pressed={layout === "grid"}
           >
             <LayoutGrid size={14} />
           </button>

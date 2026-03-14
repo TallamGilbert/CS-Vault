@@ -28,11 +28,21 @@ export function Footer() {
             {[
               {
                 heading: "Resources",
-                links: ["CS Video Courses", "Free Books", "System Design", "Public APIs"],
+                links: [
+                  { label: "CS Video Courses", href: "#cs-courses" },
+                  { label: "Free Books", href: "#free-books" },
+                  { label: "System Design", href: "#system-design-primer" },
+                  { label: "Public APIs", href: "#public-apis" },
+                ],
               },
               {
                 heading: "Project",
-                links: ["GitHub", "Changelog", "Contribute", "License"],
+                links: [
+                  { label: "GitHub", href: "https://github.com/TallamGilbert/CS-Vault" },
+                  { label: "Changelog", href: "https://github.com/TallamGilbert/CS-Vault/releases" },
+                  { label: "Contribute", href: "https://github.com/TallamGilbert/CS-Vault" },
+                  { label: "License", href: "https://github.com/TallamGilbert/CS-Vault/blob/main/README.md" },
+                ],
               },
             ].map((col) => (
               <div key={col.heading}>
@@ -42,11 +52,13 @@ export function Footer() {
                 <div className="flex flex-col gap-2.5">
                   {col.links.map((link) => (
                     <a
-                      key={link}
-                      href="#"
+                      key={link.label}
+                      href={link.href}
+                      target={link.href.startsWith("http") ? "_blank" : undefined}
+                      rel={link.href.startsWith("http") ? "noopener noreferrer" : undefined}
                       className="text-[13px] text-dv-text3 hover:text-dv-text2 transition-colors no-underline"
                     >
-                      {link}
+                      {link.label}
                     </a>
                   ))}
                 </div>

@@ -28,13 +28,32 @@ export default function HomePage() {
     return () => window.removeEventListener("keydown", handler);
   }, [searchOpen]);
 
+  // Handle hash-based source navigation
+  useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash.slice(1);
+      if (hash && data?.sources.some(s => s.id === hash)) {
+        handleSelectSource(hash);
+      }
+    };
+
+    // Check on mount
+    handleHashChange();
+
+    // Listen for hash changes
+    window.addEventListener("hashchange", handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
+  }, [data]);
+
   const handleSelectSource = useCallback((sourceId: string) => {
     setSelectedSource(sourceId);
+    window.location.hash = sourceId;
     window.scrollTo({ top: 0, behavior: "smooth" });
   }, []);
 
   const handleBack = useCallback(() => {
     setSelectedSource(null);
+    window.location.hash = "";
   }, []);
 
   if (loading) return <LoadingSkeleton />;

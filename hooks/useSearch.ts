@@ -10,15 +10,23 @@ export function useSearch() {
   const [error, setError] = useState<string | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const isMountedRef = useRef(true);
 
   const search = useCallback(async (q: string) => {
     abortRef.current?.abort();
-    if (q.trim().length < 2) { setResults([]); setLoading(false); return; }
+    if (q.trim().length < 2) {
+      if (isMountedRef.current) {
+        setResults([]);
+        setLoading(false);
+      }
+      return;
+    }
 
-    setLoading(true);
-    setError(null);
     const controller = new AbortController();
     abortRef.current = controller;
+
+    if (isMountedRef.current) setLoading(true);
+    if (isMountedRef.current) setError(null);
 
     try {
       const res = await fetch(`/api/resources?q=${encodeURIComponent(q.trim())}&limit=30`, {
@@ -26,12 +34,12 @@ export function useSearch() {
       });
       if (!res.ok) throw new Error(`Search returned ${res.status}`);
       const json = await res.json();
-      setResults(json.results ?? []);
+      if (isMountedRef.current) setResults(json.results ?? []);
     } catch (err) {
       if (err instanceof DOMException && err.name === "AbortError") return;
-      setError(err instanceof Error ? err.message : "Search failed");
+      if (isMountedRef.current) setError(err instanceof Error ? err.message : "Search failed");
     } finally {
-      setLoading(false);
+      if (isMountedRef.current) setLoading(false);
     }
   }, []);
 
@@ -40,6 +48,14 @@ export function useSearch() {
     timerRef.current = setTimeout(() => search(query), 250);
     return () => { if (timerRef.current) clearTimeout(timerRef.current); };
   }, [query, search]);
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      isMountedRef.current = false;
+      abortRef.current?.abort();
+    };
+  }, []);
 
   const clear = useCallback(() => {
     setQuery(""); setResults([]); abortRef.current?.abort();
