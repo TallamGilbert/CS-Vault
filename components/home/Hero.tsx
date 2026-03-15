@@ -43,7 +43,7 @@ export function Hero({ stats, onSearchOpen }: HeroProps) {
         </button>
         <a
           href="#sources"
-          className="text-[13px] text-dv-text3 hover:text-dv-text2 transition-colors no-underline font-medium px-4 py-2.5"
+          className="text-[13px] text-dv-text3 hover:text-dv-text2 transition-colors no-underline font-medium px-4 py-2.5 border border-dv-text3 rounded-lg hover:border-dv-text2"
         >
           Browse sources
         </a>
